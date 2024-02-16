@@ -1,8 +1,13 @@
 import React from "react";
+import Products from "./Products";
 
 const Home = () => {
   return (
-    <div className="mx-[2rem] md:mx-[4rem] lg:mx-[6rem]">this is home</div>
+    <div className="bg-[#FAFAFA]">
+      <div className="mx-[2rem] md:mx-[4rem] lg:mx-[6rem] py-5 ">
+        <Products />
+      </div>
+    </div>
   );
 };
 
