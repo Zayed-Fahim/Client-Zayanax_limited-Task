@@ -4,7 +4,7 @@ import SmallDeviceNavbar from "../../smallComponents/Home/SmallDeviceNavbar";
 
 const Navbar = () => {
   return (
-    <div className="bg-white sticky top-0">
+    <div className="bg-white sticky top-0 z-[999]">
       {/* for large screen */}
       <LargeDeviceNavbar />
 

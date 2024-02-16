@@ -29,8 +29,8 @@ const LargeDeviceNavbar = () => {
             <RiShoppingCartLine className="w-7 h-7 lg:w-9 lg:h-9 cursor-pointer" />
             <div className="flex justify-center items-center lg:text-[1.3rem] gap-2 font-semibold cursor-pointer">
               Cart
-              <div className="h-5 w-5 lg:h-6 lg:w-6 bg-yellow-300 rounded-[50%] flex justify-center items-center animate-bounce animation-delay-100">
-                <span className="lg:text-[1.3rem]">0</span>
+              <div className="h-4 w-4 lg:h-5 lg:w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
+                <span className="text-[1rem]">0</span>
               </div>
             </div>
           </div>

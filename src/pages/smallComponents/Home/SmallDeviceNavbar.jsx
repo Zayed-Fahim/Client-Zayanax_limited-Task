@@ -50,7 +50,7 @@ const SmallDeviceNavbar = () => {
               <RiShoppingCartLine className="w-7 h-7 cursor-pointer" />
               <div className="flex justify-center items-center gap-2 text-xl font-semibold cursor-pointer">
                 Cart
-                <div className="h-5 w-5 bg-yellow-300 rounded-[50%] flex justify-center items-center animate-bounce animation-delay-100">
+                <div className="h-5 w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
                   <span className="text-[1rem]">0</span>
                 </div>
               </div>
