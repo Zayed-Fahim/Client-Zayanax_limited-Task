@@ -3,7 +3,7 @@ import Products from "./Products";
 
 const Home = () => {
   return (
-    <div className="bg-[#FAFAFA]">
+    <div>
       <div className="mx-[2rem] md:mx-[4rem] lg:mx-[6rem] py-5 ">
         <Products />
       </div>

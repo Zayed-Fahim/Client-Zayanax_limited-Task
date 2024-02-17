@@ -4,6 +4,11 @@ import Main from "../layout/Main/Main";
 import Home from "../pages/components/Home/Home";
 import SignUp from "../pages/components/Home/SignUp";
 import Cart from "../pages/components/Home/Cart";
+import Dashboard from "../layout/Dashboard/Dashboard";
+import OrdersPage from "../pages/components/Dashboard/OrdersPage";
+import ProductsPage from "../pages/components/Dashboard/ProductsPage";
+import PromoCodesPage from "../pages/components/Dashboard/PromoCodesPage";
+import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
 
 const Routes = () => {
   const routes = createBrowserRouter([
@@ -24,6 +29,28 @@ const Routes = () => {
     {
       path: "/sign-up",
       element: <SignUp />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+      children: [
+        {
+          path: "/dashboard/promotion/promo-codes",
+          element: <PromoCodesPage />,
+        },
+        {
+          path: "/dashboard/promotion/add-promo-codes",
+          element: <AddPromoCode />,
+        },
+        {
+          path: "/dashboard/orders",
+          element: <OrdersPage />,
+        },
+        {
+          path: "/dashboard/products",
+          element: <ProductsPage />,
+        },
+      ],
     },
   ]);
   return <RouterProvider router={routes} />;

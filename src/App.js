@@ -2,7 +2,7 @@ import Routes from "./routes/Routes";
 
 const App = () => {
   return (
-    <div className="">
+    <div className="bg-[#FAFAFA]">
       <Routes />
     </div>
   );

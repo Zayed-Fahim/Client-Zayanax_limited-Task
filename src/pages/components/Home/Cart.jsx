@@ -7,7 +7,7 @@ import TermsAndConditions from "../../smallComponents/Home/TermsAndConditions";
 const Cart = () => {
   const navigate = useNavigate();
   return (
-    <div className="bg-[#FAFAFA] min-h-screen">
+    <div className="min-h-screen">
       <div className="flex flex-col gap-5 mx-[2rem] md:mx-[4rem] lg:mx-[6rem] py-5">
         <button
           onClick={() => navigate("/")}
