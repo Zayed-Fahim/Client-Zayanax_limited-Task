@@ -1,6 +1,8 @@
 import React from "react";
 import CartItem from "../../reuseableComponents/CartItem";
 import { useNavigate } from "react-router-dom";
+import OrderSummary from "../../smallComponents/Home/OrderSummary";
+import TermsAndConditions from "../../smallComponents/Home/TermsAndConditions";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -14,8 +16,12 @@ const Cart = () => {
         >
           Go Back
         </button>
-        <div className="border w-4/5 rounded-xl bg-white">
-          <CartItem />
+        <div className="flex gap-5 w-full">
+          <div className="border rounded-xl w-5/6 bg-white flex flex-col h-max">
+            <CartItem />
+            <TermsAndConditions />
+          </div>
+          <OrderSummary />
         </div>
       </div>
     </div>

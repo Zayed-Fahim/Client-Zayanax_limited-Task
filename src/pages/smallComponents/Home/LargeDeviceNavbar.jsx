@@ -26,8 +26,14 @@ const LargeDeviceNavbar = () => {
         {/* cart and account section */}
         <div className="flex justify-center items-center md:gap-5 lg:gap-12">
           <div className="flex justify-center items-center gap-2">
-            <RiShoppingCartLine className="w-7 h-7 lg:w-9 lg:h-9 cursor-pointer" />
-            <div className="flex justify-center items-center lg:text-[1.3rem] gap-2 font-semibold cursor-pointer">
+            <RiShoppingCartLine
+              className="w-7 h-7 lg:w-9 lg:h-9 cursor-pointer"
+              onClick={() => navigate("/cart")}
+            />
+            <div
+              className="flex justify-center items-center lg:text-[1.3rem] gap-2 font-semibold cursor-pointer"
+              onClick={() => navigate("/cart")}
+            >
               Cart
               <div className="h-4 w-4 lg:h-5 lg:w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
                 <span className="text-[1rem]">0</span>
