@@ -1,7 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import Button from "../../reuseableComponents/Button";
 
 const TermsAndConditions = () => {
+  const checkOutButtonClassnames =
+    "uppercase px-16 py-2 rounded font-semibold bg-[#FFF700]";
   const {
     reset,
     register,
@@ -42,12 +45,11 @@ const TermsAndConditions = () => {
             {errors.terms.message}
           </span>
         )}
-        <button
-          type="submit"
-          className="uppercase px-16 py-2 rounded font-semibold bg-[#FFF700]"
-        >
-          Checkout
-        </button>
+        <Button
+          type={"submit"}
+          classNames={checkOutButtonClassnames}
+          text={"Checkout"}
+        />
       </div>
     </form>
   );

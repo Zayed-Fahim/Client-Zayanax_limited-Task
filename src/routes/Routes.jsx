@@ -9,6 +9,7 @@ import OrdersPage from "../pages/components/Dashboard/OrdersPage";
 import ProductsPage from "../pages/components/Dashboard/ProductsPage";
 import PromoCodesPage from "../pages/components/Dashboard/PromoCodesPage";
 import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
+import AddProduct from "../pages/components/Dashboard/AddProduct";
 
 const Routes = () => {
   const routes = createBrowserRouter([
@@ -49,6 +50,10 @@ const Routes = () => {
         {
           path: "/dashboard/products",
           element: <ProductsPage />,
+        },
+        {
+          path: "/dashboard/products/add-new-products",
+          element: <AddProduct />,
         },
       ],
     },

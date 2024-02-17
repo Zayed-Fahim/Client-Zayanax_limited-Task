@@ -1,7 +1,10 @@
 import React from "react";
 import image from "../../assets/card/iphone-15-pro-max.jfif";
+import Button from "./Button";
 
-const ProductCard = ({ product }) => {
+const ProductCard = () => {
+  const addToCartButtonClassNames =
+    "bg-[#FFF700] text-black py-2 px-4 rounded-3xl";
   return (
     <>
       <style jsx="true">{`
@@ -28,9 +31,11 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="bg-[#FFF700] text-black py-2 px-4 rounded-3xl">
-            Add to Cart
-          </button>
+          <Button
+            classNames={addToCartButtonClassNames}
+            text="Add to Cart"
+            type="button"
+          />
         </div>
       </div>
     </>

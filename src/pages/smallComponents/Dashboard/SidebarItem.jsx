@@ -12,7 +12,7 @@ const SidebarItem = ({ item }) => {
 
   return (
     <li
-      className={`px-10 font-semibold py-2`}
+      className="px-10 font-semibold py-2"
       onClick={() => {
         if (item.path) {
           navigate(item?.path);
@@ -27,9 +27,7 @@ const SidebarItem = ({ item }) => {
       >
         <span>{item.title}</span>
         {item.submenu?.length > 0 && (
-          <IoIosArrowDown
-            className={`${open ? "rotate-180 transition-all" : ""}`}
-          />
+          <IoIosArrowDown className={`${open ? "rotate-180" : ""}`} />
         )}
       </div>
       {open && item.submenu?.length > 0 && (

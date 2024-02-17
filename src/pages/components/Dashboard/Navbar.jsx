@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   return (
-    <div className="py-4 border-b border-gray-300 sticky top-0 bg-white">
+    <div className="py-4 border-b border-gray-300 sticky top-0 bg-white z-[999]">
       <nav className="md:mx-[2rem] lg:mx-[6rem] flex justify-between items-center">
         <div
           className="cursor-pointer text-4xl font-semibold"

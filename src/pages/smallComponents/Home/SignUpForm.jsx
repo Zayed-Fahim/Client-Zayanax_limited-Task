@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import InputError from "../../reuseableComponents/InputError";
+import Button from "../../reuseableComponents/Button";
 
 const SignUpForm = () => {
   //   const navigate = useNavigate();
+  const signUpButtonClassNames =
+    "py-2 border border-gray-200 px-12 font-semibold rounded-3xl bg-[#FFF700]";
   // input validation using zod
   const validation = z.object({
     phone: z.string().refine((value) => /^(?:\+88)?01[1-9]\d{8}$/.test(value), {
@@ -60,9 +63,7 @@ const SignUpForm = () => {
         )}
       </div>
       <div className="flex items-center justify-center">
-        <button className="py-2 border border-gray-200 px-12 font-semibold rounded-3xl bg-[#FFF700]">
-          Sign Up
-        </button>
+        <Button classNames={signUpButtonClassNames} text="Sign Up" />
       </div>
     </form>
   );
