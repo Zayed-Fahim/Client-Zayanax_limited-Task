@@ -10,6 +10,7 @@ import ProductsPage from "../pages/components/Dashboard/ProductsPage";
 import PromoCodesPage from "../pages/components/Dashboard/PromoCodesPage";
 import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
 import AddProduct from "../pages/components/Dashboard/AddProduct";
+import AdminPanel from "../pages/components/Dashboard/AdminPanel";
 
 const Routes = () => {
   const routes = createBrowserRouter([
@@ -30,6 +31,10 @@ const Routes = () => {
     {
       path: "/sign-up",
       element: <SignUp />,
+    },
+    {
+      path: "/admin-panel",
+      element: <AdminPanel />,
     },
     {
       path: "/dashboard",
