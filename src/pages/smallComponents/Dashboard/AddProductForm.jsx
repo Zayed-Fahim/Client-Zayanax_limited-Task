@@ -28,7 +28,7 @@ const AddProductForm = () => {
     color: z
       .string()
       .min(3)
-      .regex(/^[a-zA-Z\s]*$/),
+      .regex(/^[A-Z][a-z]*$/),
     size: z.string().regex(/^[a-zA-Z0-9\s]*$/),
   });
 
@@ -87,7 +87,7 @@ const AddProductForm = () => {
           <input
             className="appearance-none border pl-4 border-gray-200 rounded-md w-full py-2 text-gray-600 leading-tight focus:outline-none mt-2"
             id="productPriceBeforeDiscount"
-            type="productPriceBeforeDiscount"
+            type="text"
             {...register("productPriceBeforeDiscount", { required: true })}
           />
         </div>
@@ -102,7 +102,7 @@ const AddProductForm = () => {
           <input
             className="appearance-none border pl-4 border-gray-200 rounded-md w-full py-2 text-gray-600 leading-tight focus:outline-none mt-2"
             id="discountRate"
-            type="discountRate"
+            type="text"
             {...register("discountRate")}
           />
         </div>
@@ -117,7 +117,7 @@ const AddProductForm = () => {
           <input
             className="appearance-none border pl-4 border-gray-200 rounded-md w-full py-2 text-gray-600 leading-tight focus:outline-none mt-2"
             id="shippingCharge"
-            type="shippingCharge"
+            type="text"
             {...register("shippingCharge", { required: true })}
           />
         </div>
@@ -136,7 +136,9 @@ const AddProductForm = () => {
             {...register("color", { required: true })}
           />
         </div>
-        {errors.color && <InputError text="Color is not valid!" />}
+        {errors.color && (
+          <InputError text="Color is not valid! First Character must be uppercase." />
+        )}
 
         <div>
           <label htmlFor="size" className="font-semibold pb-2">
