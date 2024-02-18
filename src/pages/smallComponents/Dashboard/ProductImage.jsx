@@ -1,11 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
+import { RiDeleteBinLine } from "react-icons/ri";
 import Resizer from "react-image-file-resizer";
 import Button from "../../reuseableComponents/Button";
-import { RiDeleteBinLine } from "react-icons/ri";
 
-const ProductImage = () => {
+const ProductImage = ({ setProcessedImage, processedImage, setImageError }) => {
   const fileInputRef = useRef(null);
-  const [processedImage, setProcessedImage] = useState(null);
+
   const removeButtonClassNames =
     "bg-white px-3 py-1 shadow rounded absolute bottom-2 right-2";
 
@@ -30,7 +30,7 @@ const ProductImage = () => {
       const image = await resizeFile(file);
       setProcessedImage(image);
     } catch (err) {
-      console.log(err);
+      setImageError(err.message);
     }
   };
 
