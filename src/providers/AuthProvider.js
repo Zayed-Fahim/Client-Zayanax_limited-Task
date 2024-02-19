@@ -60,7 +60,6 @@ const AuthProvider = ({ children }) => {
       fetchAdminData();
     }
   }, [adminToken]);
-  console.log(admin, user);
   const authInfo = {
     user,
     admin,

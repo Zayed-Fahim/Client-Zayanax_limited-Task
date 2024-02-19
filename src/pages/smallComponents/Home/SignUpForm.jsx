@@ -9,10 +9,12 @@ import axios from "axios";
 import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
 import AuthContext from "../../../contexts/AuthContext";
 import Cookies from "js-cookie";
+import CommonContext from "../../../contexts/CommonContext";
 
-const SignUpForm = ({ setStatus, setText, setIsSuccess }) => {
+const SignUpForm = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
+  const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(null);
   const signUpButtonClassNames =

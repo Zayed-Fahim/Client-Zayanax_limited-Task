@@ -7,8 +7,10 @@ import AuthContext from "../../../contexts/AuthContext";
 import Cookies from "js-cookie";
 import axios from "axios";
 import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
+import CommonContext from "../../../contexts/CommonContext";
 
-const AdminPanelForm = ({ setStatus, setText, setIsSuccess }) => {
+const AdminPanelForm = () => {
+  const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
   const navigate = useNavigate();
   const { setAdmin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);

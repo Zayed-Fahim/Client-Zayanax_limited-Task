@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ProductImage from "./ProductImage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -9,8 +9,10 @@ import StatusButton from "../../reuseableComponents/StatusButton";
 import imageUpload from "../../../utils/imageUpload";
 import axios from "axios";
 import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
+import CommonContext from "../../../contexts/CommonContext";
 
-const AddProductForm = ({ setStatus, setText, setIsSuccess }) => {
+const AddProductForm = () => {
+  const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
   const [isChecked, setIsChecked] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [processedImage, setProcessedImage] = useState(null);

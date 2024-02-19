@@ -6,11 +6,7 @@ const AdminPanel = ({ setStatus, setText, setIsSuccess }) => {
     <div className="flex flex-col gap-7 justify-center items-center w-full h-screen">
       <h1 className="text-3xl font-semibold">Admin Panel</h1>
       <div className="bg-white p-5 rounded-xl flex flex-col gap-5 xl:w-1/3 2xl:w-1/6 shadow">
-        <AdminPanelForm
-          setIsSuccess={setIsSuccess}
-          setText={setText}
-          setStatus={setStatus}
-        />
+        <AdminPanelForm />
       </div>
       <div className="xl:w-1/3 2xl:w-1/6 h-max p-5 border border-black border-opacity-45 rounded-xl flex gap-3 flex-col">
         <h1 className="font-semibold text-black">

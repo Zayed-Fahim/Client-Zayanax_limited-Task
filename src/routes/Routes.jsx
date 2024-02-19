@@ -1,16 +1,17 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Main from "../layout/Main/Main";
-import Home from "../pages/components/Home/Home";
-import SignUp from "../pages/components/Home/SignUp";
-import Cart from "../pages/components/Home/Cart";
 import Dashboard from "../layout/Dashboard/Dashboard";
+import Main from "../layout/Main/Main";
+import AddProduct from "../pages/components/Dashboard/AddProduct";
+import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
+import AdminPanel from "../pages/components/Dashboard/AdminPanel";
 import OrdersPage from "../pages/components/Dashboard/OrdersPage";
 import ProductsPage from "../pages/components/Dashboard/ProductsPage";
 import PromoCodesPage from "../pages/components/Dashboard/PromoCodesPage";
-import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
-import AddProduct from "../pages/components/Dashboard/AddProduct";
-import AdminPanel from "../pages/components/Dashboard/AdminPanel";
+import Cart from "../pages/components/Home/Cart";
+import Home from "../pages/components/Home/Home";
+import SignUp from "../pages/components/Home/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = ({
   setOnClick,
@@ -30,80 +31,64 @@ const Routes = ({
         },
         {
           path: "/cart",
-          element: (
-            <Cart
-              setIsSuccess={setIsSuccess}
-              setText={setText}
-              setStatus={setStatus}
-              setButtonText={setButtonText}
-              setOnClick={setOnClick}
-            />
-          ),
+          element: <Cart />,
         },
       ],
     },
     {
       path: "/auth/sign-up",
-      element: (
-        <SignUp
-          setIsSuccess={setIsSuccess}
-          setText={setText}
-          setStatus={setStatus}
-          setButtonText={setButtonText}
-          setOnClick={setOnClick}
-        />
-      ),
+      element: <SignUp />,
     },
     {
       path: "/auth/admin-panel",
-      element: (
-        <AdminPanel
-          setIsSuccess={setIsSuccess}
-          setText={setText}
-          setStatus={setStatus}
-          setButtonText={setButtonText}
-          setOnClick={setOnClick}
-        />
-      ),
+      element: <AdminPanel />,
     },
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: (
+        <PrivateRoute>
+          <Dashboard />
+        </PrivateRoute>
+      ),
       children: [
         {
           path: "/dashboard/promotion/promo-codes",
-          element: <PromoCodesPage />,
+          element: (
+            <PrivateRoute>
+              <PromoCodesPage />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/dashboard/promotion/add-promo-codes",
           element: (
-            <AddPromoCode
-              setIsSuccess={setIsSuccess}
-              setText={setText}
-              setStatus={setStatus}
-              setButtonText={setButtonText}
-              setOnClick={setOnClick}
-            />
+            <PrivateRoute>
+              <AddPromoCode />
+            </PrivateRoute>
           ),
         },
         {
           path: "/dashboard/orders",
-          element: <OrdersPage />,
+          element: (
+            <PrivateRoute>
+              <OrdersPage />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/dashboard/products",
-          element: <ProductsPage />,
+          element: (
+            <PrivateRoute>
+              <ProductsPage />
+            </PrivateRoute>
+          ),
         },
         {
           path: "/dashboard/products/add-new-products",
           element: (
-            <AddProduct
-              setIsSuccess={setIsSuccess}
-              setText={setText}
-              setStatus={setStatus}
-              setButtonText={setButtonText}
-              setOnClick={setOnClick}
-            />
+            <PrivateRoute>
+              <AddProduct />
+            </PrivateRoute>
           ),
         },
       ],
