@@ -43,7 +43,7 @@ const Routes = ({
       ],
     },
     {
-      path: "/sign-up",
+      path: "/auth/sign-up",
       element: (
         <SignUp
           setIsSuccess={setIsSuccess}
@@ -55,7 +55,7 @@ const Routes = ({
       ),
     },
     {
-      path: "/admin-panel",
+      path: "/auth/admin-panel",
       element: (
         <AdminPanel
           setIsSuccess={setIsSuccess}

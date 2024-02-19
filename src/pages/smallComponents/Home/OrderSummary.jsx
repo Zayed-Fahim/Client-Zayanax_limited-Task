@@ -4,7 +4,7 @@ import AuthContext from "../../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const OrderSummary = () => {
-  const { user } = useContext(AuthContext);
+  const { user, admin } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <div className="flex flex-col w-1/6 bg-white border rounded-xl h-max">
@@ -40,14 +40,14 @@ const OrderSummary = () => {
       <div className="py-4 px-4 w-full flex justify-center items-center border-b border-dashed">
         <input
           type="text"
-          disabled={!user}
+          disabled={!user && !admin}
           className="focus:outline-none border rounded-l h-10 pl-3 text-sm w-full"
         />
         <button
           className="px-5 h-10 rounded-r border-t border-r border-b bg-[#FBFBFB]"
           onClick={() => {
             if (!user) {
-              navigate("/sign-up");
+              navigate("/auth/sign-up");
             }
           }}
         >

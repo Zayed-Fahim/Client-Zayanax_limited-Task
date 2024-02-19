@@ -40,7 +40,7 @@ const SignUpForm = ({ setStatus, setText, setIsSuccess }) => {
         role: "user",
       };
       const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/register",
+        "http://localhost:8080/api/v1/user/auth/register",
         newData
       );
       if (response?.status === 200) {
