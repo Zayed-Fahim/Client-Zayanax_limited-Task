@@ -1,13 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import InputError from "../../reuseableComponents/InputError";
 import Button from "../../reuseableComponents/Button";
+import axios from "axios";
+import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
+import AuthContext from "../../../contexts/AuthContext";
+import Cookies from "js-cookie";
 
-const SignUpForm = () => {
-  //   const navigate = useNavigate();
+const SignUpForm = ({ setStatus, setText, setIsSuccess }) => {
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
   const signUpButtonClassNames =
     "py-2 border border-gray-200 px-12 font-semibold rounded-3xl bg-[#FFF700]";
   // input validation using zod
@@ -18,16 +25,45 @@ const SignUpForm = () => {
     password: z.string().min(6),
   });
 
-  // use react hook form for getting input value from registration form
   const {
     handleSubmit,
     reset,
     register,
     formState: { errors },
   } = useForm({ resolver: zodResolver(validation) });
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const newData = {
+        ...data,
+        role: "user",
+      };
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/auth/register",
+        newData
+      );
+      if (response?.status === 200) {
+        const token = await response?.data?.payload?.token;
+        await setUser(response?.data?.payload?.newUserData);
+        Cookies.set("token", token);
+        Cookies.set("role", response?.data?.payload?.newUserData?.role);
+        reset();
+        setIsError(null);
+        setIsLoading(false);
+        setText("Your Signed up");
+        setStatus("Successfully");
+        setTimeout(() => setIsSuccess(true), 500);
+        setTimeout(() => setIsSuccess(false), 1500);
+        setTimeout(() => navigate("/cart"));
+      } else {
+        setIsError(response?.data?.message);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -62,8 +98,12 @@ const SignUpForm = () => {
           <InputError text="Password is required! Length must be at least 6 characters." />
         )}
       </div>
+      {isError && <InputError text={isError} />}
       <div className="flex items-center justify-center">
-        <Button classNames={signUpButtonClassNames} text="Sign Up" />
+        <Button
+          classNames={signUpButtonClassNames}
+          text={isLoading ? <FormSubmissionLoader /> : "Sign UP"}
+        />
       </div>
     </form>
   );

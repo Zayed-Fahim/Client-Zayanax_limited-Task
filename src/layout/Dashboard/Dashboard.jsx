@@ -7,7 +7,7 @@ const Dashboard = () => {
   return (
     <div className="h-screen overflow-y-auto relative">
       <Navbar />
-      <div className="flex gap-5 relative">
+      <div className="flex gap-5">
         <Sidebar />
         <Outlet />
       </div>

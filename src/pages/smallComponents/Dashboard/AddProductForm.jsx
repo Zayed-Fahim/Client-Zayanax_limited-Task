@@ -6,9 +6,13 @@ import { z } from "zod";
 import InputError from "../../reuseableComponents/InputError";
 import Button from "../../reuseableComponents/Button";
 import StatusButton from "../../reuseableComponents/StatusButton";
+import imageUpload from "../../../utils/imageUpload";
+import axios from "axios";
+import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
 
-const AddProductForm = () => {
+const AddProductForm = ({ setStatus, setText, setIsSuccess }) => {
   const [isChecked, setIsChecked] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [processedImage, setProcessedImage] = useState(null);
   const [imageError, setImageError] = useState(null);
   const addProductButtonClassNames =
@@ -38,21 +42,46 @@ const AddProductForm = () => {
     register,
     formState: { errors },
   } = useForm({ resolver: zodResolver(validation) });
-  const onSubmit = (data) => {
+
+  const onSubmit = async (data) => {
     if (!processedImage) {
       setImageError("Please select an image");
       return;
     } else if (processedImage) {
       setImageError(null);
     }
-    console.log(data);
-    setProcessedImage(null);
-    setImageError(null);
-    reset();
+    setIsLoading(true);
+    try {
+      const productImage = await imageUpload(processedImage);
+      const productData = {
+        ...data,
+        status: isChecked,
+        productImage,
+      };
+      const response = await axios.post(
+        "http://localhost:8080/products",
+        productData
+      );
+      if (response.status === 200) {
+        setProcessedImage(null);
+        setImageError(null);
+        reset();
+        setIsChecked(true);
+        setIsLoading(false);
+        setText("Your Product Added");
+        setStatus("Successfully");
+        setTimeout(() => setIsSuccess(true), 500);
+        setTimeout(() => setIsSuccess(false), 2000);
+      }
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+      setIsLoading(false);
+    }
   };
+
   return (
     <form
-      className="bg-white w-[20%] drop-shadow-md p-8 rounded-2xl flex gap-5 flex-col"
+      className="bg-white md:w-2/4 lg:w-1/5 drop-shadow-md p-8 rounded-2xl flex gap-5 flex-col"
       onSubmit={handleSubmit(onSubmit)}
     >
       <ProductImage
@@ -161,7 +190,10 @@ const AddProductForm = () => {
         />
       </div>
       <div className="flex items-center justify-center">
-        <Button classNames={addProductButtonClassNames} text="Add Product" />
+        <Button
+          classNames={addProductButtonClassNames}
+          text={isLoading ? <FormSubmissionLoader /> : "Add Product"}
+        />
       </div>
     </form>
   );

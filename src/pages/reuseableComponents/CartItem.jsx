@@ -4,7 +4,7 @@ import image from "../../assets/card/iphone-15-pro-max.jfif";
 
 const CartItem = () => {
   const [quantity, setQuantity] = useState(1);
-
+  
   const increaseQuantity = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };

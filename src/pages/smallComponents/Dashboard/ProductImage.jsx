@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
-import Resizer from "react-image-file-resizer";
 import Button from "../../reuseableComponents/Button";
+import resizeFile from "../../../utils/resizeImage";
 
 const ProductImage = ({ setProcessedImage, processedImage, setImageError }) => {
   const fileInputRef = useRef(null);
@@ -9,24 +9,9 @@ const ProductImage = ({ setProcessedImage, processedImage, setImageError }) => {
   const removeButtonClassNames =
     "bg-white px-3 py-1 shadow rounded absolute bottom-2 right-2";
 
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        500,
-        500,
-        "PNG",
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        "base64"
-      );
-    });
   const handleFileChange = async (event) => {
+    const file = event.target.files[0];
     try {
-      const file = event.target.files[0];
       const image = await resizeFile(file);
       setProcessedImage(image);
     } catch (err) {

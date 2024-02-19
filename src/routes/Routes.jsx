@@ -12,7 +12,13 @@ import AddPromoCode from "../pages/components/Dashboard/AddPromoCode";
 import AddProduct from "../pages/components/Dashboard/AddProduct";
 import AdminPanel from "../pages/components/Dashboard/AdminPanel";
 
-const Routes = () => {
+const Routes = ({
+  setOnClick,
+  setButtonText,
+  setStatus,
+  setText,
+  setIsSuccess,
+}) => {
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -24,17 +30,41 @@ const Routes = () => {
         },
         {
           path: "/cart",
-          element: <Cart />,
+          element: (
+            <Cart
+              setIsSuccess={setIsSuccess}
+              setText={setText}
+              setStatus={setStatus}
+              setButtonText={setButtonText}
+              setOnClick={setOnClick}
+            />
+          ),
         },
       ],
     },
     {
       path: "/sign-up",
-      element: <SignUp />,
+      element: (
+        <SignUp
+          setIsSuccess={setIsSuccess}
+          setText={setText}
+          setStatus={setStatus}
+          setButtonText={setButtonText}
+          setOnClick={setOnClick}
+        />
+      ),
     },
     {
       path: "/admin-panel",
-      element: <AdminPanel />,
+      element: (
+        <AdminPanel
+          setIsSuccess={setIsSuccess}
+          setText={setText}
+          setStatus={setStatus}
+          setButtonText={setButtonText}
+          setOnClick={setOnClick}
+        />
+      ),
     },
     {
       path: "/dashboard",
@@ -46,7 +76,15 @@ const Routes = () => {
         },
         {
           path: "/dashboard/promotion/add-promo-codes",
-          element: <AddPromoCode />,
+          element: (
+            <AddPromoCode
+              setIsSuccess={setIsSuccess}
+              setText={setText}
+              setStatus={setStatus}
+              setButtonText={setButtonText}
+              setOnClick={setOnClick}
+            />
+          ),
         },
         {
           path: "/dashboard/orders",
@@ -58,7 +96,15 @@ const Routes = () => {
         },
         {
           path: "/dashboard/products/add-new-products",
-          element: <AddProduct />,
+          element: (
+            <AddProduct
+              setIsSuccess={setIsSuccess}
+              setText={setText}
+              setStatus={setStatus}
+              setButtonText={setButtonText}
+              setOnClick={setOnClick}
+            />
+          ),
         },
       ],
     },
