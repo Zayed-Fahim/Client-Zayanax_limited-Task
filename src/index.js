@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import AuthProvider from "./providers/AuthProvider";
 import CommonProvider from "./providers/CommonProvider";
+import ProductSearchProvider from "./providers/ProductSearchProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <CommonProvider>
-        <App />
+        <ProductSearchProvider>
+          <App />
+        </ProductSearchProvider>
       </CommonProvider>
     </AuthProvider>
   </React.StrictMode>

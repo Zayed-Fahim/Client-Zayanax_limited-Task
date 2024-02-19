@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   RiMenu3Line,
   RiSearch2Line,
@@ -7,9 +7,11 @@ import {
 } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import CommonContext from "../../../contexts/CommonContext";
 
 const SmallDeviceNavbar = () => {
   const navigate = useNavigate();
+  const { cart } = useContext(CommonContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -51,7 +53,7 @@ const SmallDeviceNavbar = () => {
               <div className="flex justify-center items-center gap-2 text-xl font-semibold cursor-pointer">
                 Cart
                 <div className="h-5 w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
-                  <span className="text-[1rem]">0</span>
+                  <span className="text-[1rem]">{cart ? cart?.length : 0}</span>
                 </div>
               </div>
             </div>

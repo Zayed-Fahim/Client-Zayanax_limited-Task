@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RiSearch2Line, RiShoppingCartLine, RiUserLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import CommonContext from "../../../contexts/CommonContext";
+import ProductSearchContext from "../../../contexts/ProductSearchContext";
 
 const LargeDeviceNavbar = () => {
   const navigate = useNavigate();
+  const { cart } = useContext(CommonContext);
+  const { handleSearchChange } = useContext(ProductSearchContext);
+
   return (
     <div className="hidden md:block py-4 border-b border-gray-300">
       <nav className="md:mx-[2rem] lg:mx-[6rem] flex justify-between">
@@ -20,6 +25,7 @@ const LargeDeviceNavbar = () => {
           <input
             type="text"
             className="focus:outline-none text-sm w-full pl-8"
+            onChange={handleSearchChange}
             placeholder="Search..."
           />
         </div>
@@ -36,7 +42,7 @@ const LargeDeviceNavbar = () => {
             >
               Cart
               <div className="h-4 w-4 lg:h-5 lg:w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
-                <span className="text-[1rem]">0</span>
+                <span className="text-[1rem]">{cart ? cart?.length : 0}</span>
               </div>
             </div>
           </div>
