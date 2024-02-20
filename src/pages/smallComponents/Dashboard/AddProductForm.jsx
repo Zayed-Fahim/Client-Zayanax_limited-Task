@@ -59,6 +59,7 @@ const AddProductForm = () => {
         ...data,
         status: isChecked,
         productImage,
+        usageCount: 0,
       };
       const response = await axios.post(
         "http://localhost:8080/api/v1/products",

@@ -59,7 +59,7 @@ const PromoCode = ({ promoCode }) => {
           </p>
         </div>
         <div>
-          <p>Usages: {promoCode?.useTime}</p>
+          <p>Usages: {promoCode?.usageCount}</p>
         </div>
         <div>
           <p>Discount Rate: {promoCode?.discountRate}%</p>
