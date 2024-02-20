@@ -11,7 +11,7 @@ export const sidebarData = [
       {
         id: 2,
         title: "Add Promo Codes",
-        path: "/dashboard/promotion/add-promo-codes",
+        path: "/dashboard/promotion/add-new-promo-code",
       },
     ],
   },

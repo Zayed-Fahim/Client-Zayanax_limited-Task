@@ -61,7 +61,7 @@ const AddProductForm = () => {
         productImage,
       };
       const response = await axios.post(
-        "http://localhost:8080/products",
+        "http://localhost:8080/api/v1/products",
         productData
       );
       if (response.status === 200) {

@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import InputError from "../../reuseableComponents/InputError";
 import Button from "../../reuseableComponents/Button";
 import StatusButton from "../../reuseableComponents/StatusButton";
+import CommonContext from "../../../contexts/CommonContext";
+import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
+import axios from "axios";
 
 const AddPromoCodeForm = () => {
+  const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
   const [isChecked, setIsChecked] = useState(true);
-
+  const [isLoading, setIsLoading] = useState(false);
   const addPromoCodeButtonClassNames =
     "py-2.5 shadow px-10 font-bold rounded-3xl bg-[#FFF700]";
 
@@ -44,8 +48,30 @@ const AddPromoCodeForm = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(validation) });
 
-  const onSubmit = (data) => {
-    reset();
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const promoCodeData = {
+        ...data,
+        status: isChecked,
+      };
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/promo-code",
+        promoCodeData
+      );
+      if (response.status === 200) {
+        setIsChecked(true);
+        reset();
+        setIsLoading(false);
+        setText("Your Promo Code Added");
+        setStatus("Successfully");
+        setTimeout(() => setIsSuccess(true), 500);
+        setTimeout(() => setIsSuccess(false), 2000);
+      }
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -139,7 +165,10 @@ const AddPromoCodeForm = () => {
         />
       </div>
       <div className="flex items-center justify-center">
-        <Button classNames={addPromoCodeButtonClassNames} text="Add" />
+        <Button
+          classNames={addPromoCodeButtonClassNames}
+          text={isLoading ? <FormSubmissionLoader /> : "Add"}
+        />
       </div>
     </form>
   );

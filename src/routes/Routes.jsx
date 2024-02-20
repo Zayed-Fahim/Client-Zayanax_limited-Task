@@ -60,7 +60,7 @@ const Routes = ({
           ),
         },
         {
-          path: "/dashboard/promotion/add-promo-codes",
+          path: "/dashboard/promotion/add-new-promo-code",
           element: (
             <PrivateRoute>
               <AddPromoCode />
@@ -84,7 +84,7 @@ const Routes = ({
           ),
         },
         {
-          path: "/dashboard/products/add-new-products",
+          path: "/dashboard/products/add-new-product",
           element: (
             <PrivateRoute>
               <AddProduct />

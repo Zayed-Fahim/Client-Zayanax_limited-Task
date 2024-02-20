@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Button from "../../reuseableComponents/Button";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ProductCard from "../../reuseableComponents/ProductCard";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "../../reuseableComponents/Button";
 import DataFetchingLoader from "../../reuseableComponents/DataFetchingLoader";
+import EditableProductCard from "../../reuseableComponents/EditableProductCard";
 
 const ProductsPage = () => {
   const navigate = useNavigate();
@@ -39,9 +39,9 @@ const ProductsPage = () => {
   }, [products]);
 
   return (
-    <div className="flex flex-col gap-5 px-10 py-5 w-full h-full">
+    <div className="flex flex-col gap-5 px-10 py-5 w-5/6 h-full">
       <Button
-        onClick={() => navigate("/dashboard/products/add-new-products")}
+        onClick={() => navigate("/dashboard/products/add-new-product")}
         type={"button"}
         classNames={addProductClassNames}
         text={"Add New Product"}
@@ -49,9 +49,9 @@ const ProductsPage = () => {
       {isLoading ? (
         <DataFetchingLoader />
       ) : (
-        <div className="grid xl:grid-cols-6 gap-x-8 gap-y-10 h-max w-full">
+        <div className="grid xl:grid-cols-6 gap-x-5 gap-y-10 h-max w-full">
           {filteredProducts?.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <EditableProductCard key={index} product={product} />
           ))}
         </div>
       )}
