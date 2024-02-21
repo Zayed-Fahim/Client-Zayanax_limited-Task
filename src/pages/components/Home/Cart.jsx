@@ -1,29 +1,68 @@
 import React, { useContext, useEffect } from "react";
-import CartItem from "../../reuseableComponents/CartItem";
 import { useNavigate } from "react-router-dom";
+import CommonContext from "../../../contexts/CommonContext";
+import Button from "../../reuseableComponents/Button";
+import CartItem from "../../reuseableComponents/CartItem";
 import OrderSummary from "../../smallComponents/Home/OrderSummary";
 import TermsAndConditions from "../../smallComponents/Home/TermsAndConditions";
-import Button from "../../reuseableComponents/Button";
-import CommonContext from "../../../contexts/CommonContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { cart, setCart, setItems } = useContext(CommonContext);
   const backButtonClassNames =
     "text-xl font-semibold bg-white w-max drop-shadow px-5 py-2 rounded-3xl";
+  const {
+    cart,
+    total,
+    setCart,
+    setItems,
+    subTotal,
+    setSubTotal,
+    shippingCharge,
+    setShippingCharge,
+  } = useContext(CommonContext);
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
+    const storedCart = localStorage?.getItem("cart");
     const parsedCart = storedCart ? JSON.parse(storedCart) : [];
     setCart(parsedCart);
-    setItems(cart?.length);
-  }, [setCart, cart?.length, setItems]);
+    setItems(parsedCart?.length);
+    const updatedSubTotal = calculateSubTotal(parsedCart);
+    setSubTotal(updatedSubTotal);
+    const updatedShippingCharge = calculateShippingTotalCharge(parsedCart);
+    setShippingCharge(updatedShippingCharge);
+  }, [
+    setCart,
+    setItems,
+    setSubTotal,
+    setShippingCharge,
+    shippingCharge,
+    subTotal,
+  ]);
 
   const handleDeleteItem = (itemId) => {
-    const updatedCart = cart.filter((item) => item._id !== itemId);
+    const updatedCart = cart.filter((item) => item?._id !== itemId);
     setCart(updatedCart);
+    setItems(updatedCart?.length);
+    const updatedSubTotal = calculateSubTotal(updatedCart);
+    setSubTotal(updatedSubTotal);
+    const updatedShippingCharge = calculateShippingTotalCharge(updatedCart);
+    setShippingCharge(updatedShippingCharge);
     const updatedCartString = JSON.stringify(updatedCart);
     localStorage.setItem("cart", updatedCartString);
+  };
+
+  const calculateSubTotal = (cartItems) => {
+    return cartItems.reduce((acc, item) => {
+      const discountedPrice =
+        item?.productPriceBeforeDiscount * (1 - item?.discountRate / 100);
+      return acc + discountedPrice * item.quantity;
+    }, 0);
+  };
+  const calculateShippingTotalCharge = (cartItems) => {
+    return cartItems.reduce((acc, item) => {
+      const shippingTotal = item?.shippingCharge * item?.quantity;
+      return acc + shippingTotal;
+    }, 0);
   };
 
   return (
@@ -38,7 +77,7 @@ const Cart = () => {
         <div className="flex gap-5 w-full ">
           {cart.length <= 0 ? (
             <p className="h-max py-10 w-5/6 font-semibold rounded-xl border bg-white flex justify-center items-center">
-              No products found on your cart! Add some products to cart.
+              No products found in your cart! Add some products to the cart.
             </p>
           ) : (
             <div className="border rounded-xl w-5/6 bg-white flex flex-col h-max">
@@ -50,10 +89,13 @@ const Cart = () => {
                     handleDeleteItem={handleDeleteItem}
                   />
                 ))}
-              <TermsAndConditions />
+              <TermsAndConditions total={total} />
             </div>
           )}
-          <OrderSummary />
+          <OrderSummary
+            subTotal={calculateSubTotal(cart)}
+            shippingCharge={calculateShippingTotalCharge(cart)}
+          />
         </div>
       </div>
     </div>

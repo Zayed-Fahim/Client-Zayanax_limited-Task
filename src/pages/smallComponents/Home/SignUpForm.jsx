@@ -42,7 +42,7 @@ const SignUpForm = () => {
         role: "user",
       };
       const response = await axios.post(
-        "http://localhost:8080/api/v1/user/auth/register",
+        "https://server-zayanax-limited-task.vercel.app/api/v1/user/auth/register",
         newData
       );
       if (response?.status === 200) {

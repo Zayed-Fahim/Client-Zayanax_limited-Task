@@ -16,7 +16,9 @@ const ProductsPage = () => {
   useEffect(() => {
     setIsLoading(true);
     const fetchedProducts = async () => {
-      const response = await axios.get("http://localhost:8080/api/v1/products");
+      const response = await axios.get(
+        "https://server-zayanax-limited-task.vercel.app/api/v1/products"
+      );
       if (response.status === 200) {
         setProducts(response.data.payload);
         setTimeout(() => setIsLoading(false), 1500);

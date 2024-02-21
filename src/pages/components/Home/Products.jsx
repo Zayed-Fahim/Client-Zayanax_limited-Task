@@ -15,7 +15,7 @@ const Products = () => {
     const fetchedProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/products"
+          "https://server-zayanax-limited-task.vercel.app/api/v1/products"
         );
         if (response.status === 200) {
           setProducts(response.data.payload);

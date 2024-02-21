@@ -56,7 +56,7 @@ const AddPromoCodeForm = () => {
         status: isChecked,
       };
       const response = await axios.post(
-        "http://localhost:8080/api/v1/promo-code",
+        "https://server-zayanax-limited-task.vercel.app/api/v1/promo-code",
         promoCodeData
       );
       if (response.status === 200) {

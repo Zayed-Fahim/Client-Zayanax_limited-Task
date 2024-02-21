@@ -11,7 +11,7 @@ const ProductSearchProvider = ({ children }) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/products/search?search=${newSearchTerm}`
+        `https://server-zayanax-limited-task.vercel.app/api/v1/products/search?search=${newSearchTerm}`
       );
       setSearchResults(response?.data?.payload);
     } catch (error) {

@@ -1,23 +1,64 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import CommonContext from "../../../contexts/CommonContext";
 import Button from "../../reuseableComponents/Button";
 
-const TermsAndConditions = () => {
+const TermsAndConditions = ({ total }) => {
   const checkOutButtonClassnames =
     "uppercase px-16 py-2 rounded font-semibold bg-[#FFF700]";
+  const {
+    cart,
+    setText,
+    setStatus,
+    setIsSuccess,
+    setButtonText,
+    setCart,
+    discount,
+    setDiscount,
+  } = useContext(CommonContext);
+
   const {
     reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    if (data.terms) {
-      reset();
-    } else {
-      alert("Please agree to the terms and conditions");
+
+  const onSubmit = async (data) => {
+    const newAmount = total - discount;
+    const newOrder = {
+      cart: [...cart],
+      terms: data.terms,
+      amount: newAmount,
+      status: "",
+    };
+    try {
+      const response = await axios.post(
+        "https://server-zayanax-limited-task.vercel.app/api/v1/orders",
+        newOrder
+      );
+      if (response.status === 200) {
+        reset();
+        setCart([]);
+        localStorage.removeItem("cart");
+        setDiscount(0);
+        setText("Your Order Placed");
+        setStatus("Successfully");
+        setButtonText("Go to Admin Panel");
+        setTimeout(() => {
+          setIsSuccess(true);
+        }, 500);
+      }
+    } catch (error) {
+      setText("Your Order Placed");
+      setStatus("Unsuccessful");
+      setTimeout(() => setIsSuccess(true), 500);
+      setTimeout(() => setIsSuccess(false), 1500);
+      console.log(error);
     }
   };
+
   return (
     <form
       className="px-5 h-20 flex flex-col items-start justify-center relative w-full"

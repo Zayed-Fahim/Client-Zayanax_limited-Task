@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/user/auth/register/verify",
+          "https://server-zayanax-limited-task.vercel.app/api/v1/user/auth/register/verify",
           {
             headers: {
               Authorization: userToken,
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     const fetchAdminData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/admin/auth/login/verify",
+          "https://server-zayanax-limited-task.vercel.app/api/v1/admin/auth/login/verify",
           {
             headers: {
               Authorization: adminToken,

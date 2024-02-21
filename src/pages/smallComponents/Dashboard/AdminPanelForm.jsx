@@ -33,7 +33,7 @@ const AdminPanelForm = () => {
         password: data.password,
       };
       const response = await axios.post(
-        "http://localhost:8080/api/v1/admin/auth/login",
+        "https://server-zayanax-limited-task.vercel.app/api/v1/admin/auth/login",
         newData
       );
       if (response?.status === 200) {

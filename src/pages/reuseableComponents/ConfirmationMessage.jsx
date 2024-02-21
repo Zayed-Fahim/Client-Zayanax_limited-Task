@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import tick from "../../assets/icon/check.png";
-import Button from "./Button";
+import CommonContext from "../../contexts/CommonContext";
+import Button from "../smallComponents/Dashboard/Button";
+
 const ConfirmationMessage = ({
   text,
   status,
   buttonText,
-  onClick,
   classNames,
   type,
 }) => {
+  const { setIsSuccess } = useContext(CommonContext);
+
   return (
     <div className="h-[100vh] w-full flex justify-center pt-60 bg-[#848484]">
       <div className="bg-white w-[280px] h-[220px] rounded-lg flex flex-col justify-center items-center gap-3 font-semibold">
@@ -17,14 +20,16 @@ const ConfirmationMessage = ({
           <p>{text}</p>
           <p>{status}</p>
         </div>
-        {buttonText && (
-          <Button
-            type={type}
-            onClick={onClick}
-            text={buttonText}
-            classNames={classNames}
-          />
-        )}
+
+        <Button
+          type={type}
+          onClick={() => {
+            window.location.href = "/auth/admin-panel";
+            setIsSuccess(false);
+          }}
+          text={buttonText}
+          classNames={classNames}
+        />
       </div>
     </div>
   );

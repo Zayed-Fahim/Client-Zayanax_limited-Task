@@ -62,7 +62,7 @@ const AddProductForm = () => {
         usageCount: 0,
       };
       const response = await axios.post(
-        "http://localhost:8080/api/v1/products",
+        "https://server-zayanax-limited-task.vercel.app/api/v1/products",
         productData
       );
       if (response.status === 200) {

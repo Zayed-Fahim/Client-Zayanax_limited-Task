@@ -23,7 +23,8 @@ const ProductCard = ({ product }) => {
       setIsSuccess(true);
       setTimeout(() => setIsSuccess(false), 1000);
     } else {
-      setCart([...cart, { ...product }]);
+      const updatedProduct = { ...product, quantity: 1 };
+      setCart([...cart, updatedProduct]);
     }
   };
 

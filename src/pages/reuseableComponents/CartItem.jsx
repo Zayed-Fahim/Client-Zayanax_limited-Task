@@ -1,25 +1,79 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { RiDeleteBinLine } from "react-icons/ri";
+import CommonContext from "../../contexts/CommonContext";
 
 const CartItem = ({ item, handleDeleteItem }) => {
-  const [quantity, setQuantity] = useState(1);
+  const { cart, setSubTotal, setItems, setShippingCharge } =
+    useContext(CommonContext);
 
   const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    const updatedCart = [...cart];
+    updatedCart.forEach((cartItem) => {
+      if (cartItem?._id === item?._id) {
+        cartItem.quantity += 1;
+      }
+    });
+    updateCartAndTotals(updatedCart);
   };
 
   const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+    if (item?.quantity > 1) {
+      const updatedCart = [...cart];
+      updatedCart.forEach((cartItem) => {
+        if (cartItem?._id === item?._id) {
+          cartItem.quantity -= 1;
+        }
+      });
+      updateCartAndTotals(updatedCart);
     }
   };
-  const discountedPrice =
-    item?.productPriceBeforeDiscount -
-    item?.productPriceBeforeDiscount * (item?.discountRate / 100);
+
+  const updateCartAndTotals = async (updatedCart) => {
+    try {
+      const updatedSubTotal = calculateSubTotal(updatedCart);
+      const updatedShippingTotalCharge =
+        calculateShippingTotalCharge(updatedCart);
+
+      const [subTotal, shippingTotal, itemsCount] = await Promise.all([
+        updatedSubTotal,
+        updatedShippingTotalCharge,
+        updatedCart.length,
+      ]);
+
+      await setSubTotal(subTotal);
+      await setShippingCharge(shippingTotal);
+      await setItems(itemsCount);
+
+      updateLocalStorage(updatedCart);
+    } catch (error) {
+      console.error("Error updating cart and totals:", error);
+    }
+  };
+
+  const calculateSubTotal = (cartItems) => {
+    return cartItems.reduce((acc, cartItem) => {
+      const discountedPrice =
+        cartItem?.productPriceBeforeDiscount *
+        (1 - cartItem?.discountRate / 100);
+      return acc + discountedPrice * cartItem?.quantity;
+    }, 0);
+  };
+  const calculateShippingTotalCharge = async (cartItems) => {
+    return cartItems.reduce((acc, item) => {
+      const shippingTotal = item?.shippingCharge * item?.quantity;
+      return acc + shippingTotal;
+    }, 0);
+  };
+
+  const updateLocalStorage = (updatedCart) => {
+    const updatedCartString = JSON.stringify(updatedCart);
+    localStorage.setItem("cart", updatedCartString);
+  };
 
   const handleDelete = () => {
-    handleDeleteItem(item._id);
+    handleDeleteItem(item?._id);
   };
+
   return (
     <div className="flex justify-start items-center gap-4 p-5 border-b w-full">
       <img height={100} width={100} src={item?.productImage} alt="" />
@@ -37,12 +91,17 @@ const CartItem = ({ item, handleDeleteItem }) => {
               <p>Color: {item?.color}</p>
               <p>Size: {item?.size}</p>
             </div>
-            <p>Product Price: BDT. {discountedPrice * quantity}</p>
+            <p>
+              Product Price: BDT.{" "}
+              {item?.productPriceBeforeDiscount *
+                (1 - item?.discountRate / 100) *
+                item?.quantity}
+            </p>
           </div>
 
           <div className="flex flex-col gap-2 w-1/5">
             <p>Shipping Method: EMS</p>
-            <p>Shipping Charge: BDT. {item?.shippingCharge * quantity}</p>
+            <p>Shipping Charge: BDT. {item?.shippingCharge * item?.quantity}</p>
           </div>
 
           <div className="flex flex-col gap-2 w-1/5">
@@ -55,7 +114,7 @@ const CartItem = ({ item, handleDeleteItem }) => {
                 >
                   -
                 </button>
-                <div className="bg-white border px-3">{quantity}</div>
+                <div className="bg-white border px-3">{item?.quantity}</div>
                 <button
                   className="bg-white border px-3 rounded-r-3xl cursor-pointer"
                   onClick={increaseQuantity}
@@ -66,7 +125,10 @@ const CartItem = ({ item, handleDeleteItem }) => {
             </div>
             <p>
               Total Price: BDT.{" "}
-              {discountedPrice * quantity + item.shippingCharge * quantity}
+              {item?.productPriceBeforeDiscount *
+                (1 - item?.discountRate / 100) *
+                item?.quantity +
+                item?.shippingCharge * item?.quantity}
             </p>
           </div>
         </div>

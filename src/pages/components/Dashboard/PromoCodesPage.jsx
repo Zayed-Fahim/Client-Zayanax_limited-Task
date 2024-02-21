@@ -16,7 +16,7 @@ const PromoCodesPage = () => {
     setIsLoading(true);
     const fetchedProducts = async () => {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/promo-code"
+        "https://server-zayanax-limited-task.vercel.app/api/v1/promo-code"
       );
       if (response.status === 200) {
         setPromoCodes(response.data.payload);
