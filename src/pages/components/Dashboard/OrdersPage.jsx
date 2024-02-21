@@ -58,7 +58,7 @@ const OrdersPage = () => {
             <p>Status</p>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-5">
           {isLoading ? (
             <OrderFetchingLoader />
           ) : (

@@ -1,20 +1,22 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../reuseableComponents/Button";
 import DataFetchingLoader from "../../reuseableComponents/DataFetchingLoader";
 import PromoCode from "../../reuseableComponents/PromoCode";
+import CommonContext from "../../../contexts/CommonContext";
 
 const PromoCodesPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [promoCodes, setPromoCodes] = useState([]);
+  const { setPromoCode, setIsPromoCodeEditing } = useContext(CommonContext);
   const addPromoCodeClassNames =
     "font-semibold bg-white w-max px-7 drop-shadow py-2 rounded-3xl";
 
   useEffect(() => {
     setIsLoading(true);
-    const fetchedProducts = async () => {
+    const fetchedPromoCodes = async () => {
       const response = await axios.get(
         "https://server-zayanax-limited-task.vercel.app/api/v1/promo-code"
       );
@@ -23,13 +25,17 @@ const PromoCodesPage = () => {
         setTimeout(() => setIsLoading(false), 1500);
       }
     };
-    fetchedProducts();
+    fetchedPromoCodes();
   }, []);
 
   return (
     <div className="flex flex-col gap-5 px-10 py-5 w-5/6 h-full">
       <Button
-        onClick={() => navigate("/dashboard/promotion/add-new-promo-code")}
+        onClick={() => {
+          setPromoCode(null);
+          setIsPromoCodeEditing(false);
+          navigate("/dashboard/promotion/add-new-promo-code");
+        }}
         type={"button"}
         classNames={addPromoCodeClassNames}
         text={"Add New Promo"}

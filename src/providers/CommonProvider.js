@@ -14,7 +14,12 @@ const CommonProvider = ({ children }) => {
   const [total, setTotal] = useState(0);
   const [totalPayAble, setTotalPayAble] = useState(total);
   const [discount, setDiscount] = useState(0);
+  const [isPromoCodeEditing, setIsPromoCodeEditing] = useState(false);
+  const [promoCodeData, setPromoCodeData] = useState(null);
 
+  const setPromoCode = (data) => {
+    setPromoCodeData(data);
+  };
   const values = {
     cart,
     text,
@@ -26,8 +31,11 @@ const CommonProvider = ({ children }) => {
     isSuccess,
     buttonText,
     walletDebit,
-    shippingCharge,
     totalPayAble,
+    promoCodeData,
+    shippingCharge,
+    isPromoCodeEditing,
+
     setCart,
     setText,
     setTotal,
@@ -35,11 +43,13 @@ const CommonProvider = ({ children }) => {
     setStatus,
     setSubTotal,
     setDiscount,
+    setPromoCode,
     setIsSuccess,
     setButtonText,
     setWalletDebit,
-    setShippingCharge,
     setTotalPayAble,
+    setShippingCharge,
+    setIsPromoCodeEditing,
   };
   return (
     <CommonContext.Provider value={values}>{children}</CommonContext.Provider>

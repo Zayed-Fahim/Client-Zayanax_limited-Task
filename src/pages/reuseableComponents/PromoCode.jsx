@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "./Button";
+import CommonContext from "../../contexts/CommonContext";
+import { useNavigate } from "react-router-dom";
 
 const PromoCode = ({ promoCode }) => {
+  const navigate = useNavigate();
+  const { setPromoCode, setIsPromoCodeEditing } = useContext(CommonContext);
   const activeButtonClassNames =
     "bg-[#FFFEE1] text-[#7A4100] px-8 rounded-3xl font-semibold py-2.5";
   const deActiveButtonClassNames =
     "bg-[#FFE1E1] text-[#FF3D57]  px-8 rounded-3xl font-semibold py-2.5";
   const editButtonClassNames =
     "bg-[#FFF700] px-12 rounded-3xl font-semibold py-2.5";
-  //   const handleDelete = () => {
-  //     handleDeleteItem(item._id);
-  //   };
+
   const createdAtDate = new Date(promoCode?.createdAt);
   const startDate = new Date(promoCode?.startDate);
   const endDate = new Date(promoCode?.endDate);
@@ -32,6 +34,12 @@ const PromoCode = ({ promoCode }) => {
     year: "numeric",
   });
 
+  const handleEditClick = () => {
+    setPromoCode(promoCode);
+    setIsPromoCodeEditing(true);
+    navigate("/dashboard/promotion/add-new-promo-code/mode=editing");
+  };
+
   return (
     <div className="flex flex-col justify-start items-center rounded-xl shadow-sm bg-white w-[calc(100%-40px)]">
       <div className="flex justify-between items-center w-full border-b">
@@ -40,7 +48,11 @@ const PromoCode = ({ promoCode }) => {
           <p>{promoCode?.promoCode.toUpperCase()}</p>
         </div>
         <div className="flex gap-5 items-center px-6 py-3.5">
-          <Button text="Edit" classNames={editButtonClassNames} />
+          <Button
+            text="Edit"
+            classNames={editButtonClassNames}
+            onClick={handleEditClick}
+          />
           <Button
             text={promoCode?.status ? "Deactive" : "Active"}
             classNames={
@@ -59,7 +71,7 @@ const PromoCode = ({ promoCode }) => {
           </p>
         </div>
         <div>
-          <p>Usages: {promoCode?.usageCount}</p>
+          <p>Usages: {promoCode?.usageCount ? promoCode?.usageCount : 0}</p>
         </div>
         <div>
           <p>Discount Rate: {promoCode?.discountRate}%</p>

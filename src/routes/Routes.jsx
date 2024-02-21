@@ -12,14 +12,9 @@ import Cart from "../pages/components/Home/Cart";
 import Home from "../pages/components/Home/Home";
 import SignUp from "../pages/components/Home/SignUp";
 import PrivateRoute from "./PrivateRoute";
+import EditablePromoCode from "../pages/reuseableComponents/EditablePromoCode";
 
-const Routes = ({
-  setOnClick,
-  setButtonText,
-  setStatus,
-  setText,
-  setIsSuccess,
-}) => {
+const Routes = () => {
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -88,6 +83,14 @@ const Routes = ({
           element: (
             <PrivateRoute>
               <AddProduct />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/dashboard/promotion/add-new-promo-code/mode=editing",
+          element: (
+            <PrivateRoute>
+              <EditablePromoCode />
             </PrivateRoute>
           ),
         },

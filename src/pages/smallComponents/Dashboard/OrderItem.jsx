@@ -78,8 +78,8 @@ const OrderItem = ({ index, order, activeState, setIsLoading }) => {
         }`}
       >
         {activeState === "all" &&
-          (orderConfirmed || orderCanceled) &&
-          (order?.status === "" || order?.status === "pending")(
+          !(orderConfirmed || orderCanceled) &&
+          (order?.status === "" || order?.status === "pending") && (
             <div className="flex gap-5 px-6 py-3.5 justify-start">
               <Button
                 text="Confirm"

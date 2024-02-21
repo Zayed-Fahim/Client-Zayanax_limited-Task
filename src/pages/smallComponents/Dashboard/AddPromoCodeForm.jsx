@@ -1,17 +1,18 @@
-import React, { useContext, useState } from "react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import InputError from "../../reuseableComponents/InputError";
-import Button from "../../reuseableComponents/Button";
-import StatusButton from "../../reuseableComponents/StatusButton";
-import CommonContext from "../../../contexts/CommonContext";
-import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
 import axios from "axios";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import CommonContext from "../../../contexts/CommonContext";
+import Button from "../../reuseableComponents/Button";
+import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
+import InputError from "../../reuseableComponents/InputError";
+import StatusButton from "../../reuseableComponents/StatusButton";
 
 const AddPromoCodeForm = () => {
-  const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
-  const [isChecked, setIsChecked] = useState(true);
+  const { setText, setStatus, setIsSuccess, isPromoCodeEditing } =
+    useContext(CommonContext);
+  const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const addPromoCodeButtonClassNames =
     "py-2.5 shadow px-10 font-bold rounded-3xl bg-[#FFF700]";
@@ -46,32 +47,42 @@ const AddPromoCodeForm = () => {
     reset,
     register,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(validation) });
+  } = useForm({
+    resolver: zodResolver(validation),
+  });
 
-  const onSubmit = async (data) => {
-    setIsLoading(true);
+  const submitPromoCode = async (data) => {
     try {
-      const promoCodeData = {
+      const postPromoCodeData = {
         ...data,
         status: isChecked,
       };
+
       const response = await axios.post(
         "https://server-zayanax-limited-task.vercel.app/api/v1/promo-code",
-        promoCodeData
+        postPromoCodeData
       );
-      if (response.status === 200) {
-        setIsChecked(true);
-        reset();
-        setIsLoading(false);
-        setText("Your Promo Code Added");
-        setStatus("Successfully");
-        setTimeout(() => setIsSuccess(true), 500);
-        setTimeout(() => setIsSuccess(false), 2000);
-      }
+
+      handlePostSubmissionResponse(response);
     } catch (error) {
-      console.error("Error submitting data:", error.message);
       setIsLoading(false);
     }
+  };
+
+  const handlePostSubmissionResponse = async (response) => {
+    if (response.status === 200) {
+      reset();
+      setText("Your Promo Code Added");
+      setStatus("Successfully");
+      setTimeout(() => setIsSuccess(true), 500);
+      setTimeout(() => setIsSuccess(false), 2000);
+      setIsLoading(false);
+    }
+  };
+
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    await submitPromoCode(data);
   };
 
   return (
@@ -87,6 +98,7 @@ const AddPromoCodeForm = () => {
           <input
             className="appearance-none border pl-4 border-gray-300 rounded-md w-full py-2.5 text-gray-600 leading-tight focus:outline-none mt-2 uppercase"
             id="promoCode"
+            readOnly={isPromoCodeEditing}
             type="text"
             {...register("promoCode", {
               required: true,
@@ -110,6 +122,7 @@ const AddPromoCodeForm = () => {
           <input
             className="appearance-none border pl-4 pr-2 border-gray-200 rounded-md w-full py-2.5 text-gray-600 leading-tight focus:outline-none mt-2"
             id="startDate"
+            readOnly={isPromoCodeEditing}
             type="date"
             {...register("startDate", { required: true })}
           />
