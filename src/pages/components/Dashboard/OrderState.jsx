@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderState = ({ activeState, setActiveState }) => {
+const OrderState = ({ activeState, setActiveState, fetchedOrders }) => {
   const orderStateData = [
     {
       id: 1,
@@ -23,7 +23,7 @@ const OrderState = ({ activeState, setActiveState }) => {
     {
       id: 4,
       name: "Canceled",
-      value: "cancel",
+      value: "canceled",
       backgroundColor: "#FF004E",
     },
   ];
@@ -35,6 +35,7 @@ const OrderState = ({ activeState, setActiveState }) => {
           key={data.id}
           onClick={() => {
             setActiveState(data?.value);
+            fetchedOrders(data?.value);
           }}
           className="cursor-pointer shadow rounded-xl w-[260px] h-[90px] px-5 py-3 font-semibold"
           style={{
