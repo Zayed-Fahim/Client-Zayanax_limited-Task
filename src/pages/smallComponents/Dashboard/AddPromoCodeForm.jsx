@@ -8,10 +8,12 @@ import Button from "../../reuseableComponents/Button";
 import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
 import InputError from "../../reuseableComponents/InputError";
 import StatusButton from "../../reuseableComponents/StatusButton";
+import PromoCodeContext from "../../../contexts/PromoCodeContext";
 
 const AddPromoCodeForm = () => {
   const { setText, setStatus, setIsSuccess, isPromoCodeEditing } =
     useContext(CommonContext);
+  const { fetchedPromoCodes } = useContext(PromoCodeContext);
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const addPromoCodeButtonClassNames =
@@ -71,6 +73,7 @@ const AddPromoCodeForm = () => {
 
   const handlePostSubmissionResponse = async (response) => {
     if (response.status === 200) {
+      await fetchedPromoCodes();
       reset();
       setText("Your Promo Code Added");
       setStatus("Successfully");

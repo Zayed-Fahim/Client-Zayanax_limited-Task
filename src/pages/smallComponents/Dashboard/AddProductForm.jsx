@@ -10,9 +10,11 @@ import imageUpload from "../../../utils/imageUpload";
 import axios from "axios";
 import FormSubmissionLoader from "../../reuseableComponents/FormSubmissionLoader";
 import CommonContext from "../../../contexts/CommonContext";
+import ProductContext from "../../../contexts/ProductContext";
 
 const AddProductForm = () => {
   const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
+  const { fetchedProducts } = useContext(ProductContext);
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [processedImage, setProcessedImage] = useState(null);
@@ -21,10 +23,7 @@ const AddProductForm = () => {
     "py-2 border border-gray-200 px-6 font-bold rounded-3xl bg-[#FFF700]";
 
   const validation = z.object({
-    productName: z
-      .string()
-      .min(1)
-      .regex(/^[a-zA-Z0-9\s]*$/),
+    productName: z.string().min(1),
     productPriceBeforeDiscount: z.string().min(1).regex(/^\d+$/),
     discountRate: z.string().regex(/^(\d+)?(\.\d{1,3})?$/),
     shippingCharge: z
@@ -65,6 +64,7 @@ const AddProductForm = () => {
         productData
       );
       if (response.status === 200) {
+        await fetchedProducts();
         setProcessedImage(null);
         setImageError(null);
         reset();

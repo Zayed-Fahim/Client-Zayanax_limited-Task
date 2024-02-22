@@ -6,15 +6,21 @@ import reportWebVitals from "./reportWebVitals";
 import AuthProvider from "./providers/AuthProvider";
 import CommonProvider from "./providers/CommonProvider";
 import ProductSearchProvider from "./providers/ProductSearchProvider";
+import ProductProvider from "./providers/ProductProvider";
+import PromoCodeProvider from "./providers/PromoCodeProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <CommonProvider>
-        <ProductSearchProvider>
-          <App />
-        </ProductSearchProvider>
+        <ProductProvider>
+          <PromoCodeProvider>
+            <ProductSearchProvider>
+              <App />
+            </ProductSearchProvider>
+          </PromoCodeProvider>
+        </ProductProvider>
       </CommonProvider>
     </AuthProvider>
   </React.StrictMode>
