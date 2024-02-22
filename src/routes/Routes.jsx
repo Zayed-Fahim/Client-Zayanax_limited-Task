@@ -13,6 +13,7 @@ import Home from "../pages/components/Home/Home";
 import SignUp from "../pages/components/Home/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import EditablePromoCode from "../pages/reuseableComponents/EditablePromoCode";
+import EditableProductCardForm from "../pages/reuseableComponents/EditableProductCardForm";
 
 const Routes = () => {
   const routes = createBrowserRouter([
@@ -63,6 +64,14 @@ const Routes = () => {
           ),
         },
         {
+          path: "/dashboard/promotion/add-new-promo-code/mode=editing",
+          element: (
+            <PrivateRoute>
+              <EditablePromoCode />
+            </PrivateRoute>
+          ),
+        },
+        {
           path: "/dashboard/orders",
           element: (
             <PrivateRoute>
@@ -87,10 +96,10 @@ const Routes = () => {
           ),
         },
         {
-          path: "/dashboard/promotion/add-new-promo-code/mode=editing",
+          path: "/dashboard/products/add-new-product/mode=editing",
           element: (
             <PrivateRoute>
-              <EditablePromoCode />
+              <EditableProductCardForm />
             </PrivateRoute>
           ),
         },

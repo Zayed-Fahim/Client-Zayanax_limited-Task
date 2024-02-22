@@ -15,10 +15,15 @@ const CommonProvider = ({ children }) => {
   const [totalPayAble, setTotalPayAble] = useState(total);
   const [discount, setDiscount] = useState(0);
   const [isPromoCodeEditing, setIsPromoCodeEditing] = useState(false);
+  const [isProductEditing, setIsProductEditing] = useState(false);
   const [promoCodeData, setPromoCodeData] = useState(null);
+  const [productData, setProductData] = useState(null);
 
   const setPromoCode = (data) => {
     setPromoCodeData(data);
+  };
+  const setProduct = (data) => {
+    setProductData(data);
   };
   const values = {
     cart,
@@ -30,10 +35,12 @@ const CommonProvider = ({ children }) => {
     discount,
     isSuccess,
     buttonText,
+    productData,
     walletDebit,
     totalPayAble,
     promoCodeData,
     shippingCharge,
+    isProductEditing,
     isPromoCodeEditing,
 
     setCart,
@@ -41,6 +48,7 @@ const CommonProvider = ({ children }) => {
     setTotal,
     setItems,
     setStatus,
+    setProduct,
     setSubTotal,
     setDiscount,
     setPromoCode,
@@ -49,6 +57,7 @@ const CommonProvider = ({ children }) => {
     setWalletDebit,
     setTotalPayAble,
     setShippingCharge,
+    setIsProductEditing,
     setIsPromoCodeEditing,
   };
   return (

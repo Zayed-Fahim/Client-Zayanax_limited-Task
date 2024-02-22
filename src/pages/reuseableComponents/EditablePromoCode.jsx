@@ -17,6 +17,7 @@ const EditablePromoCode = () => {
     setIsSuccess,
     promoCodeData,
     isPromoCodeEditing,
+    setIsPromoCodeEditing
   } = useContext(CommonContext);
   const [isChecked, setIsChecked] = useState(promoCodeData?.status || false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +57,7 @@ const EditablePromoCode = () => {
   };
   const handleUpdateSubmissionResponse = (response) => {
     if (response.status === 200) {
+      setIsLoading(false);
       reset();
       setText("Your Promo Code Updated");
       setStatus("Successfully");
@@ -65,7 +67,7 @@ const EditablePromoCode = () => {
         navigate("/dashboard/promotion/promo-codes");
       }, 2000);
       setPromoCode(null);
-      setIsLoading(false);
+      setIsPromoCodeEditing(false);
     }
   };
 

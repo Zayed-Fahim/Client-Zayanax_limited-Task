@@ -3,7 +3,12 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import Button from "../../reuseableComponents/Button";
 import resizeFile from "../../../utils/resizeImage";
 
-const ProductImage = ({ setProcessedImage, processedImage, setImageError }) => {
+const ProductImage = ({
+  setProcessedImage,
+  processedImage,
+  setImageError,
+  productData,
+}) => {
   const fileInputRef = useRef(null);
 
   const removeButtonClassNames =
@@ -25,24 +30,28 @@ const ProductImage = ({ setProcessedImage, processedImage, setImageError }) => {
   };
   return (
     <>
-      {processedImage ? (
+      {productData?.productImage || processedImage ? (
         <div className="h-[200px] w-full bg-black bg-opacity-20 rounded relative">
           <img
             className="h-[200px] w-full object-contain flex justify-center items-center"
-            src={processedImage}
+            src={productData?.productImage || processedImage}
             alt=""
           />
-          <Button
-            text={
-              <div className="flex items-center justify-center gap-2">
-                <span>Remove</span>
-                <RiDeleteBinLine className="w-5 h-5" />
-              </div>
-            }
-            classNames={removeButtonClassNames}
-            type="button"
-            onClick={() => setProcessedImage(null)}
-          />
+          {processedImage && (
+            <Button
+              text={
+                <div className="flex items-center justify-center gap-2">
+                  <span>Remove</span>
+                  <RiDeleteBinLine className="w-5 h-5" />
+                </div>
+              }
+              classNames={removeButtonClassNames}
+              type="button"
+              onClick={() => {
+                setProcessedImage(null);
+              }}
+            />
+          )}
         </div>
       ) : (
         <div className="h-[170px] w-full bg-[#FFF700] rounded cursor-pointer">

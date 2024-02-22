@@ -1,15 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../reuseableComponents/Button";
 import DataFetchingLoader from "../../reuseableComponents/DataFetchingLoader";
 import EditableProductCard from "../../reuseableComponents/EditableProductCard";
+import CommonContext from "../../../contexts/CommonContext";
 
 const ProductsPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { setIsProductEditing, setProduct } = useContext(CommonContext);
   const addProductClassNames =
     "font-semibold bg-white w-max px-7 drop-shadow py-2 rounded-3xl";
 
@@ -43,7 +45,11 @@ const ProductsPage = () => {
   return (
     <div className="flex flex-col gap-5 px-10 py-5 w-5/6 h-full">
       <Button
-        onClick={() => navigate("/dashboard/products/add-new-product")}
+        onClick={() => {
+          setIsProductEditing(false);
+          setProduct(null);
+          navigate("/dashboard/products/add-new-product");
+        }}
         type={"button"}
         classNames={addProductClassNames}
         text={"Add New Product"}

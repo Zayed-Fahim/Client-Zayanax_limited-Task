@@ -13,7 +13,7 @@ import CommonContext from "../../../contexts/CommonContext";
 
 const AddProductForm = () => {
   const { setStatus, setText, setIsSuccess } = useContext(CommonContext);
-  const [isChecked, setIsChecked] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [processedImage, setProcessedImage] = useState(null);
   const [imageError, setImageError] = useState(null);
@@ -59,7 +59,6 @@ const AddProductForm = () => {
         ...data,
         status: isChecked,
         productImage,
-        usageCount: 0,
       };
       const response = await axios.post(
         "https://server-zayanax-limited-task.vercel.app/api/v1/products",
