@@ -42,7 +42,7 @@ const ProductCard = ({ product }) => {
           transition: opacity 0.3s ease-in-out;
         }
       `}</style>
-      <div className="w-[220px] h-[340px] p-3 rounded-lg overflow-hidden relative group shadow-sm transition-transform duration-300 transform bg-white">
+      <div className="w-full h-max md:w-[220px] md:h-[340px] lg:w-[230px] xl:w-[220px] p-3 rounded-lg overflow-hidden relative group shadow-sm transition-transform duration-300 transform bg-white">
         <img
           loading="lazy"
           className="rounded-md border-black h-[200px] w-full object-contain object-center"

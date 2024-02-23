@@ -75,19 +75,19 @@ const CartItem = ({ item, handleDeleteItem }) => {
   };
 
   return (
-    <div className="flex justify-start items-center gap-4 p-5 border-b w-full">
+    <div className="flex justify-start items-center p-2 gap-2 md:gap-3 lg:gap-4 lg:p-5 border-b w-full">
       <img height={100} width={100} src={item?.productImage} alt="" />
-      <div className="w-full flex flex-col gap-7">
+      <div className="w-full flex flex-col gap-3 lg:gap-7">
         <div className="flex items-center justify-between">
           <h1 className="text-[18px] font-semibold">{item?.productName}</h1>
           <RiDeleteBinLine
-            className="hover:text-red-500 hover:scale-110 w-6 h-6 cursor-pointer"
+            className="hover:text-red-500 hover:scale-110 h-5 w-5 md:w-6 md:h-6 cursor-pointer"
             onClick={handleDelete}
           />
         </div>
-        <div className="flex items-center justify-start gap-28 font-semibold">
-          <div className="flex flex-col gap-2 w-1/5">
-            <div className="flex items-center gap-8">
+        <div className="flex flex-col xl:flex-row 2xl:items-center justify-start gap-2 xl:gap-5 2xl:gap-28 text-xs md:text-sm lg:text-[1rem] md:font-semibold">
+          <div className="flex xl:flex-col gap-2 2xl:w-1/5">
+            <div className="flex flex-grow 2xl:flex-grow-0 2xl:items-center gap-2 md:gap-5 xl:gap-4 2xl:gap-8">
               <p>Color: {item?.color}</p>
               <p>Size: {item?.size}</p>
             </div>
@@ -99,24 +99,26 @@ const CartItem = ({ item, handleDeleteItem }) => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-2 w-1/5">
+          <div className="flex flex-grow 2xl:flex-grow-0 lg:justify-between xl:flex-col gap-2 2xl:w-1/5">
             <p>Shipping Method: EMS</p>
             <p>Shipping Charge: BDT. {item?.shippingCharge * item?.quantity}</p>
           </div>
 
-          <div className="flex flex-col gap-2 w-1/5">
-            <div className="flex justify-start items-center gap-1">
+          <div className="flex xl:flex-col gap-2 2xl:w-1/5">
+            <div className="flex flex-grow 2xl:flex-grow-0 justify-start items-center gap-1">
               <p>Quantity:</p>
               <div className="flex">
                 <button
-                  className="bg-white border px-3 cursor-pointer rounded-l-3xl"
+                  className="bg-white border px-1.5 md:px-2 lg:px-3 cursor-pointer rounded-l-3xl"
                   onClick={decreaseQuantity}
                 >
                   -
                 </button>
-                <div className="bg-white border px-3">{item?.quantity}</div>
+                <div className="bg-white border px-1.5 md:px-2 lg:px-3">
+                  {item?.quantity}
+                </div>
                 <button
-                  className="bg-white border px-3 rounded-r-3xl cursor-pointer"
+                  className="bg-white border px-1.5 md:px-2 lg:px-3 rounded-r-3xl cursor-pointer"
                   onClick={increaseQuantity}
                 >
                   +

@@ -52,7 +52,7 @@ const Products = () => {
           className={`${
             searchResults.length === 0 && searchTerm !== ""
               ? "h-full w-full"
-              : "grid xl:grid-cols-7 gap-x-5 gap-y-10 h-auto w-auto"
+              : "grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 md:gap-x-5 xl:gap-x-5 gap-y-10 h-auto w-auto"
           }`}
         >
           {(searchTerm === "" ? filteredProducts : searchResults)?.map(

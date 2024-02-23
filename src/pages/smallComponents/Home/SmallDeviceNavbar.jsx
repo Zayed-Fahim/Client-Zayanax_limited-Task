@@ -8,10 +8,12 @@ import {
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import CommonContext from "../../../contexts/CommonContext";
+import ProductSearchContext from "../../../contexts/ProductSearchContext";
 
 const SmallDeviceNavbar = () => {
   const navigate = useNavigate();
   const { cart } = useContext(CommonContext);
+  const { handleSearchChange } = useContext(ProductSearchContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -20,8 +22,8 @@ const SmallDeviceNavbar = () => {
 
   return (
     <div className="block md:hidden w-full relative py-3 border-b border-gray-300">
-      <nav className="mx-[2rem]">
-        <div className="cursor-pointer text-3xl font-semibold flex justify-between items-center relative">
+      <nav className="mx-[1.5rem]">
+        <div className="cursor-pointer text-[25px] font-semibold flex justify-between items-center relative">
           {/* logo section */}
           <h1 onClick={() => navigate("/")}>Test Logo</h1>
           {/* search bar */}
@@ -31,6 +33,7 @@ const SmallDeviceNavbar = () => {
               type="text"
               className="focus:outline-none text-sm w-full pl-8"
               placeholder="Search..."
+              onChange={handleSearchChange}
             />
           </div>
           {/* menubar */}
@@ -49,8 +52,14 @@ const SmallDeviceNavbar = () => {
           {/* cart and account section */}
           <div className="flex flex-col gap-">
             <div className="flex justify-start items-center py-3 border-b border-gray-300 gap-2">
-              <RiShoppingCartLine className="w-7 h-7 cursor-pointer" />
-              <div className="flex justify-center items-center gap-2 text-xl font-semibold cursor-pointer">
+              <RiShoppingCartLine
+                className="w-7 h-7 cursor-pointer"
+                onClick={() => navigate("/cart")}
+              />
+              <div
+                onClick={() => navigate("/cart")}
+                className="flex justify-center items-center gap-2 text-xl font-semibold cursor-pointer"
+              >
                 Cart
                 <div className="h-5 w-5 bg-[#FFF700] rounded-[50%] flex justify-center items-center">
                   <span className="text-[1rem]">{cart ? cart?.length : 0}</span>

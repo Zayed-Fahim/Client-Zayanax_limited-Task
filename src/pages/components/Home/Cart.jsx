@@ -74,13 +74,13 @@ const Cart = () => {
           classNames={backButtonClassNames}
           text={"Go Back"}
         />
-        <div className="flex gap-5 w-full ">
+        <div className="flex flex-col-reverse md:flex-row gap-5 md:gap-3 lg:gap-5 w-full ">
           {cart.length <= 0 ? (
             <p className="h-max py-10 w-5/6 font-semibold rounded-xl border bg-white flex justify-center items-center">
               No products found in your cart! Add some products to the cart.
             </p>
           ) : (
-            <div className="border rounded-xl w-5/6 bg-white flex flex-col h-max">
+            <div className="border rounded-xl w-full md:w-5/6 bg-white flex flex-col h-max">
               {cart?.length > 0 &&
                 cart?.map((item, index) => (
                   <CartItem

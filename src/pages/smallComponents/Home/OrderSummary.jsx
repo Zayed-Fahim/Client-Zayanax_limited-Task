@@ -58,7 +58,7 @@ const OrderSummary = () => {
     }
   };
   return (
-    <div className="flex flex-col w-1/6 bg-white border rounded-xl h-max sticky top-[85px]">
+    <div className="flex flex-col lg:w-2/6 2xl:w-1/6 bg-white border rounded-xl h-max md:sticky top-[85px]">
       <div className="py-4 flex justify-center items-center border-b font-semibold">
         <h1>ORDER SUMMARY</h1>
       </div>

@@ -11,7 +11,7 @@ const LargeDeviceNavbar = () => {
 
   return (
     <div className="hidden md:block py-4 border-b border-gray-300">
-      <nav className="md:mx-[2rem] lg:mx-[6rem] flex justify-between">
+      <nav className="md:mx-[4rem] lg:mx-[6rem] flex justify-between">
         {/* logo section */}
         <div
           className="cursor-pointer text-4xl font-semibold"

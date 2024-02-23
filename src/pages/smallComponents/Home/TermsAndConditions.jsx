@@ -61,10 +61,10 @@ const TermsAndConditions = ({ total }) => {
 
   return (
     <form
-      className="px-5 h-20 flex flex-col items-start justify-center relative w-full"
+      className="py-5 px-5 lg:py-0 lg:px-5 lg:h-20 flex flex-col items-start justify-center relative w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex justify-between items-center gap-5 font-semibold w-full">
+      <div className="flex flex-col lg:flex-row justify-between items-center gap-5 lg:font-semibold w-full">
         <div className="flex justify-start items-center gap-3 font-semibold">
           <input
             type="checkbox"
@@ -77,7 +77,10 @@ const TermsAndConditions = ({ total }) => {
               required: "Please agree to the terms and conditions",
             })}
           />
-          <label htmlFor="terms" className="cursor-pointer">
+          <label
+            htmlFor="terms"
+            className="cursor-pointer text-xs lg:text-[1rem]"
+          >
             I agree to the Terms and Conditions, Privacy Policy & Refund Policy
           </label>
         </div>

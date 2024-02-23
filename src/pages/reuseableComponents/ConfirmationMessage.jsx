@@ -15,7 +15,7 @@ const ConfirmationMessage = ({
   return (
     <div className="h-[100vh] w-full flex justify-center pt-60 bg-[#848484]">
       <div className="bg-white w-[280px] h-[220px] rounded-lg flex flex-col justify-center items-center gap-3 font-semibold">
-        <img className="h-8 w-8" src={tick} alt="" />
+        <img loading="lazy" className="h-8 w-8" src={tick} alt="" />
         <div className="flex flex-col justify-center items-center">
           <p>{text}</p>
           <p>{status}</p>
