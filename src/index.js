@@ -8,6 +8,7 @@ import CommonProvider from "./providers/CommonProvider";
 import ProductSearchProvider from "./providers/ProductSearchProvider";
 import ProductProvider from "./providers/ProductProvider";
 import PromoCodeProvider from "./providers/PromoCodeProvider";
+import OrderProvider from "./providers/OrderProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -17,7 +18,9 @@ root.render(
         <ProductProvider>
           <PromoCodeProvider>
             <ProductSearchProvider>
-              <App />
+              <OrderProvider>
+                <App />
+              </OrderProvider>
             </ProductSearchProvider>
           </PromoCodeProvider>
         </ProductProvider>
