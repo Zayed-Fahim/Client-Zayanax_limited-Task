@@ -10,7 +10,7 @@ const OrderProvider = ({ children }) => {
   const fetchedOrders = useCallback(async (active) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/orders?status=${active}`
+        `https://server-zayanax-limited-task.vercel.app/api/v1/orders?status=${active}`
       );
       if (response.status === 200 && response.data.payload.length > 0) {
         setOrders(response.data.payload);
